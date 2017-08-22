@@ -42,7 +42,7 @@ function botResponseHandler(query) {
                   postMessage("1 " + tokens[1] + " = "+ responseObj[tokens[2]] + tokens[2] +".");
               }, postMessage);
   } else if (tokens[0] === 'HELP') {
-    postMessage("Hi, I'm coinbot. \n To ask me for something, type @coinbot [query] \n Right now, you can ask me for the price of a currency with 'price BTC' or any other ticker \n You can also ask me to convert one currency to another with 'convert BTC ETH' \n That's all for now. ")
+    postMessage("Hi, I'm coinbot. \n To ask me for something, type @coinbot [query] \n To ask for the price of any ticker, try @coinbot price BTC  \n You can also ask me to convert one currency to another with 'convert BTC ETH' \n Hodl on")
   }
 }
 
