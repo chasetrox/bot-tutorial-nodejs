@@ -30,7 +30,7 @@ function botResponseHandler(query) {
   if (tokens[0] === 'price') {
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
               function (responseObj) {
-                if (responseObj.Response === "Success") {
+                if (responseObj["Response"] === "Success") {
                   postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
                 }
               }, postMessage);
