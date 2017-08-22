@@ -11,10 +11,7 @@ function respond() {
   // responds to strings starting with "@coinbot " (w/ space)
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-<<<<<<< HEAD
     postMessage("I can hear you");
-=======
->>>>>>> ca2e0c5970f1e70ffca5cd51505d0e317b3a7a2c
     var botResponse = botResponseHandler(request.text.slice(9)); // cuts after @coinbot
     this.res.end();
   } else {
