@@ -25,7 +25,7 @@ function respond() {
 
 function botResponseHandler(query) {
   console.log("in handler with query: " + query);
-  var tokens = query.split(' ').map(function (s) { return s.toUpperCase()});
+  var tokens = query.split(' ');
   // requests for specific price
   if (tokens[0] === 'price') {
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
