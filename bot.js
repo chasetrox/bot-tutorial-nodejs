@@ -25,16 +25,17 @@ function respond() {
 
 function botResponseHandler(query) {
   console.log("in handler with query: " + query);
-  var tokens = query.split(' ');
+  var tokens = query.split(' ').map(function(s) { return s.toUpperCase(); });
+  console.log(tokens[1])
   // requests for specific price
-  if (tokens[0] === 'price') {
+  if (tokens[0] === 'PRICE') {
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
               function (responseObj) {
                 if (responseObj.USD != undefined) {
                   postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
                 }
               }, postMessage);
-  } else if (tokens[0] === 'convert') {
+  } else if (tokens[0] === 'CONVERT') {
     if (tokens.length < 2) { postMessage("convert requires 2 currencies"); return; }
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
               function (responseObj) {
@@ -42,7 +43,7 @@ function botResponseHandler(query) {
                   postMessage("1 " + tokens[1] + " = "+ responseObj[tokens[2]] + tokens[2] +".");
               }, postMessage);
   } else if (tokens[0] === 'help') {
-    postMessage("Hi, I'm coinbot. \n To ask me for something, type @coinbot [query] \n Right now, I can give you the price of a currency")
+    postMessage("Hi, I'm coinbot. \n To ask me for something, type @coinbot [query] \n Right now, you can ask me for the price of a currency with 'price BTC' or any other ticker \n You can also ask me to convert one currency to another with 'convert BTC ETH' \n That's all for now. ")
   }
 }
 
