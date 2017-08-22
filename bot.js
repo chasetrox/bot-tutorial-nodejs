@@ -5,32 +5,32 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   console.log("Hit post response");
-  // var request = JSON.parse(this.req.chunks[0]),
-  //     botRegex = /^@coinbot /);
-  //
-  // // responds to strings starting with "@coinbot " (w/ space)
-  // if(request.text && botRegex.test(request.text)) {
-  //   this.res.writeHead(200);
-  //   postMessage("I can hear you");
-  //   //var botResponse = botResponseHandler(request.text.slice(9)); // cuts after @coinbot
-  //   this.res.end();
-  // } else {
-  //   console.log("don't care");
-  //   this.res.writeHead(200);
-  //   this.res.end();
-  // }
+  var request = JSON.parse(this.req.chunks[0]),
+      botRegex = new RegExp('^@coinbot /');
+
+  // responds to strings starting with "@coinbot " (w/ space)
+  if(request.text && botRegex.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage("I can hear you");
+    //var botResponse = botResponseHandler(request.text.slice(9)); // cuts after @coinbot
+    this.res.end();
+  } else {
+    console.log("don't care");
+    this.res.writeHead(200);
+    this.res.end();
+  }
 }
 
 function botResponseHandler(query) {
   var tokens = query.split(' ');
   // requests for specific price
-  if ((new RegExp('^price ').match(query))) {
+  if ((new RegExp('^price ').test(query))) {
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
     //           function (responseObj) {
     //               postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
     //           });
     postMessage("I will price you");
-  } else if ((new RegExp('^convert ').match(query))) {
+  } else if ((new RegExp('^convert ').test(query))) {
     // if (tokens.length < 1) { postMessage("convert requires 2 currencies")}
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
     //           function (responseObj) {
