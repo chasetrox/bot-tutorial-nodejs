@@ -1,5 +1,5 @@
 var http, director, cool, bot, router, server, port, querystring;
-
+//var Regexp = require('regexp');
 var HTTPS = require('https');
 http        = require('http');
 director    = require('director');
@@ -30,14 +30,14 @@ port = Number(process.env.PORT || 5000);
 server.listen(port);
 
 function ping() {
-
-
-  body = {
-    fsym: 'ETH',
-    tsyms: 'BTC'
-  };
-  var p = '/data/price';
-  console.log(JSON.stringify(apiRequest(p, body)));
+  var r = new Regexp('g');
+  //
+  // body = {
+  //   fsym: 'ETH',
+  //   tsyms: 'BTC'
+  // };
+  // var p = '/data/price';
+  // console.log(JSON.stringify(apiRequest(p, body)));
 
   this.res.writeHead(200);
   this.res.end("Hey, I'm Cool Guy.");
