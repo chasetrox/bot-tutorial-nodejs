@@ -30,17 +30,16 @@ function botResponseHandler(query) {
   if (tokens[0] === 'price') {
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
               function (responseObj) {
-                if (responseObj["Response"] === "Success") {
+                if (responseObj.USD != undefined) {
                   postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
                 }
               }, postMessage);
   } else if (tokens[0] === 'convert') {
-    if (tokens.length < 1) { postMessage("convert requires 2 currencies")}
+    if (tokens.length < 1) { postMessage("convert requires 2 currencies"); return; }
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
               function (responseObj) {
-                  if (responseObj.Response == "Success") {
-                    postMessage("1 " + tokens[1] + " = "+ responseObj[tokens[2]] + tokens[2] +".");
-                  }
+                  console.log(responseObj[tokens[2]]);
+                  postMessage("1 " + tokens[1] + " = "+ responseObj[tokens[2]] + tokens[2] +".");
               }, postMessage);
   }
 }
