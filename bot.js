@@ -23,14 +23,14 @@ function respond() {
 }
 
 function botResponseHandler(query) {
-  console.log("in handler with query:" + query);
+  console.log("in handler with query: " + query);
   var tokens = query.split(' ');
   // requests for specific price
   if (tokens[0] === 'price') {
-    // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
-    //           function (responseObj) {
-    //               postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
-    //           });
+    apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
+              function (responseObj) {
+                postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
+              }, postMessage);
     postMessage("I will price you");
   } else if (tokens[0] === 'convert') {
     // if (tokens.length < 1) { postMessage("convert requires 2 currencies")}
@@ -76,7 +76,7 @@ function postMessage(botResponse) {
   botReq.end(JSON.stringify(body));
 }
 
-function apiRequest(endpoint, body) {
+function apiRequest(endpoint, body, success, failure) {
   var options, body, coinReq;
 
   var p = endpoint + '?' + querystring.stringify(body);
@@ -96,16 +96,16 @@ function apiRequest(endpoint, body) {
     res.on('end', function() {
       console.log(responseString);
       var responseObject = JSON.parse(responseString);
-      return responseObject;
+      success(responseObject);
     });
   })
   coinReq.on('error', function(err) {
     console.log('error posting message '  + JSON.stringify(err));
-    return JSON.parse({'error': 'Something went wrong.'});
+    failure("something went terribly wrong: " + JSON.stringify(err));
   });
   coinReq.on('timeout', function(err) {
     console.log('timeout posting message '  + JSON.stringify(err));
-    return JSON.parse({'error': 'API timed out'});
+    failure("API timed out.");
   });
   coinReq.end();
 }
