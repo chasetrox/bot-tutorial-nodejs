@@ -1,5 +1,4 @@
 var HTTPS = require('https');
-var Regexp = require('regexp');
 var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
@@ -7,7 +6,7 @@ var botID = process.env.BOT_ID;
 function respond() {
   console.log("Hit post response");
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = new Regexp('^@coinbot ');
+      botRegex = new RegExp('^@coinbot ');
 
   // responds to strings starting with "@coinbot " (w/ space)
   if(request.text && botRegex.test(request.text)) {
@@ -25,13 +24,13 @@ function respond() {
 function botResponseHandler(query) {
   var tokens = query.split(' ');
   // requests for specific price
-  if ((new Regexp('^price ').match(query))) {
+  if ((new RegExp('^price ').match(query))) {
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
     //           function (responseObj) {
     //               postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
     //           });
     postMessage("I will price you");
-  } else if ((new Regexp('^convert ').match(query))) {
+  } else if ((new RegExp('^convert ').match(query))) {
     // if (tokens.length < 1) { postMessage("convert requires 2 currencies")}
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
     //           function (responseObj) {

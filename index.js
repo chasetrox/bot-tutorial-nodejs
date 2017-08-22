@@ -1,5 +1,5 @@
 var http, director, cool, bot, router, server, port, querystring;
-//var Regexp = require('regexp');
+
 var HTTPS = require('https');
 http        = require('http');
 director    = require('director');
@@ -30,7 +30,8 @@ port = Number(process.env.PORT || 5000);
 server.listen(port);
 
 function ping() {
-  var r = new Regexp('g');
+  var r = new RegExp('g');
+  r.test("r");
   //
   // body = {
   //   fsym: 'ETH',
