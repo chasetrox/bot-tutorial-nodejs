@@ -30,15 +30,6 @@ port = Number(process.env.PORT || 5000);
 server.listen(port);
 
 function ping() {
-  var r = new RegExp('g');
-  r.test("r");
-  //
-  // body = {
-  //   fsym: 'ETH',
-  //   tsyms: 'BTC'
-  // };
-  // var p = '/data/price';
-  // console.log(JSON.stringify(apiRequest(p, body)));
 
   this.res.writeHead(200);
   this.res.end("Hey, I'm Cool Guy.");

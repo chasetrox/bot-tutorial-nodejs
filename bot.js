@@ -25,7 +25,7 @@ function respond() {
 
 function botResponseHandler(query) {
   console.log("in handler with query: " + query);
-  var tokens = query.split(' ');
+  var tokens = query.split(' ').map(function (s) { return s.toUpperCase()});
   // requests for specific price
   if (tokens[0] === 'price') {
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
@@ -35,12 +35,14 @@ function botResponseHandler(query) {
                 }
               }, postMessage);
   } else if (tokens[0] === 'convert') {
-    if (tokens.length < 1) { postMessage("convert requires 2 currencies"); return; }
+    if (tokens.length < 2) { postMessage("convert requires 2 currencies"); return; }
     apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
               function (responseObj) {
                   console.log(responseObj[tokens[2]]);
                   postMessage("1 " + tokens[1] + " = "+ responseObj[tokens[2]] + tokens[2] +".");
               }, postMessage);
+  } else if (tokens[0] === 'help') {
+    postMessage("Hi, I'm coinbot. \n To ask me for something, type @coinbot [query] \n Right now, I can give you the price of a currency")
   }
 }
 
