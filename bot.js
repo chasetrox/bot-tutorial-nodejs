@@ -11,8 +11,9 @@ function respond() {
   // responds to strings starting with "@coinbot " (w/ space)
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("I can hear you");
-    var botResponse = botResponseHandler(request.text.slice(9)); // cuts after @coinbot[space]
+    // cuts after @coinbot[space]
+    console.log("invoked correctly")
+    var botResponse = botResponseHandler(request.text.slice(9));
     this.res.end();
   } else {
     console.log("don't care");
@@ -22,15 +23,16 @@ function respond() {
 }
 
 function botResponseHandler(query) {
+  console.log("in handler with query:" + query);
   var tokens = query.split(' ');
   // requests for specific price
-  if ((new RegExp('^price ').test(query))) {
+  if (tokens[0] === 'price') {
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': 'USD'},
     //           function (responseObj) {
     //               postMessage("1 " + tokens[1] + " = "+ responseObj.USD + "USD.");
     //           });
     postMessage("I will price you");
-  } else if ((new RegExp('^convert ').test(query))) {
+  } else if (tokens[0] === 'convert') {
     // if (tokens.length < 1) { postMessage("convert requires 2 currencies")}
     // apiRequest('/data/price', {'fsym': tokens[1], 'tsyms': tokens[2]},
     //           function (responseObj) {
