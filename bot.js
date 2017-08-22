@@ -6,7 +6,7 @@ var botID = process.env.BOT_ID;
 function respond() {
   console.log("Hit post response");
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = new Regex('^@coinbot ');
+      botRegex = new Regexp('^@coinbot ');
 
   // responds to strings starting with "@coinbot " (w/ space)
   if(request.text && botRegex.test(request.text)) {
